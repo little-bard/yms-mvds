@@ -9,6 +9,7 @@ services:
       - "80:80"      # HTTP (표준 포트 80)
       - "443:443"    # HTTPS (표준 포트 443)
       - "8080:80"    # HTTP (백업 포트 8080 - 기존 호환성 유지)
+      - "8088:80"
       - "8443:443"   # HTTPS (백업 포트 8443 - 기존 호환성 유지)
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -60,7 +61,7 @@ services:
     environment:
       sovity.deployment.kind: 'control-plane-with-integrated-data-plane'
       # 포트 없이 접근
-      sovity.edc.fqdn.public: 'data-space.kr'
+      sovity.edc.fqdn.public: 'data-space.kr:8088'
       sovity.edc.fqdn.internal: 'consumer-connector'
       edc.control.endpoint: 'http://consumer-connector:11004/api/control'
       sovity.jdbc.url: 'jdbc:postgresql://consumer-connector-db:5432/db-name'
@@ -146,7 +147,7 @@ services:
       - "data-space.kr:172.25.0.1"
     environment:
       sovity.deployment.kind: 'control-plane-with-integrated-data-plane'
-      sovity.edc.fqdn.public: 'data-space.kr'
+      sovity.edc.fqdn.public: 'data-space.kr:8088'
       sovity.edc.fqdn.internal: 'provider-connector'
       edc.control.endpoint: 'http://provider-connector:11004/api/control'
       sovity.jdbc.url: 'jdbc:postgresql://provider-connector-db:5432/db-name'
@@ -232,7 +233,7 @@ services:
       - "data-space.kr:172.25.0.1"
     environment:
       sovity.deployment.kind: 'control-plane-with-integrated-data-plane'
-      sovity.edc.fqdn.public: 'data-space.kr'
+      sovity.edc.fqdn.public: 'data-space.kr:8088'
       sovity.edc.fqdn.internal: 'consumer2-connector'
       edc.control.endpoint: 'http://consumer2-connector:11004/api/control'
       sovity.jdbc.url: 'jdbc:postgresql://consumer2-connector-db:5432/db-name'
@@ -318,7 +319,7 @@ services:
       - "data-space.kr:172.25.0.1"
     environment:
       sovity.deployment.kind: 'control-plane-with-integrated-data-plane'
-      sovity.edc.fqdn.public: 'data-space.kr'
+      sovity.edc.fqdn.public: 'data-space.kr:8088'
       sovity.edc.fqdn.internal: 'khu-connector'
       edc.control.endpoint: 'http://khu-connector:11004/api/control'
       sovity.jdbc.url: 'jdbc:postgresql://khu-connector-db:5432/db-name'

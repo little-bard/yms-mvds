@@ -64,11 +64,8 @@ def init_default_user(username="admin", password="admin"):
 
 # User operations
 def add_user(username, password):
-    """Add a new user to the database"""
+    """Add or update a user in the database"""
     users = _load_users_db()
-    if username in users:
-        return False
-    
     users[username] = hash_password(password)
     _save_users_db(users)
     return True
@@ -136,4 +133,4 @@ def delete_token(token):
     return True
 
 # Initialize with default user when module is loaded
-init_default_user()
+init_default_user(username="admin", password="administrator")
